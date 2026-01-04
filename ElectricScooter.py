@@ -11,6 +11,6 @@ class ElectricScooter(Vehicle):
     def calculate_trip_cost(self,distance):
         if distance >=0:
             print("Total cost is: ")
-            return distance*5
+            return 1.00+ (distance*0.15)
         else:
             raise Exception("Distance must be positive number")
