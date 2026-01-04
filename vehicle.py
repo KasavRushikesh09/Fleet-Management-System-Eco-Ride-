@@ -33,22 +33,3 @@ class Vehicle(ABC):
             self.__rental_price = price
         else:
             print("Rental price must be greater than 0")
-
-# if __name__ == "__main__":
-#          v1 = Vehicle("v101","Tesla Model 3",85)
-#
-#          print("Vehicle ID:",v1.vehicle_id)
-#          print("Model:",v1.model)
-#          print("Battery Percentage:",v1.battery_percentage)
-#
-#          print("Battery:",v1.get_battery_percentage(),"%")
-#          print("Maintenance status:",v1.get_maintenance_status())
-#          print("Rental Price:",v1.get_rental_price())
-#
-#          v1.set_battery_percentage(120)
-#          v1.set_battery_percentage(80)
-#
-#          v1.set_rental_price(-500)
-#          v1.set_rental_price(1200)
-
-        '''child class must implement'''
