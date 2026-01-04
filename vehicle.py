@@ -33,3 +33,8 @@ class Vehicle(ABC):
             self.__rental_price = price
         else:
             print("Rental price must be greater than 0")
+
+     def __eq__(self,other):
+         if isinstance(other,Vehicle):
+             return self.vehicle_id == other.vehicle_id
+         return False

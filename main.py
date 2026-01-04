@@ -12,7 +12,10 @@ class EcoRideMain:
         ola = ElectricScooter(125,"ola",80,100)
         car = ElectricCar(126,"car",85,4)
         fm = Fleetmanager()
-        fm.add_multiple_vehicle_to_hub()
+        fm.add_hub()
+        fm.add_vehicle_to_hub()
+        fm.add_vehicle_to_hub()
+        fm.add_vehicle_to_hub()
 if __name__ == "__main__":
     EcoRideMain.main()
 
