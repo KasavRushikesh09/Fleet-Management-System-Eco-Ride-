@@ -1,12 +1,11 @@
-class Vehicle:
+from abc import ABC, abstractmethod
+class Vehicle(ABC):
+     @abstractmethod
+     def calculate_trip_cost(self,distance):
+        pass
      def __init__(self, vehicle_id, model, battery_percentage):
          self.vehicle_id = vehicle_id
          self.model = model
-         self.battery_percentage = None
-         # #private attribute
-         # self.__maintenance_status = "Good"
-         # self.__rental_price = 1500
-
         #correct setter call
          self.set_battery_percentage(battery_percentage)
 
@@ -21,8 +20,8 @@ class Vehicle:
      # ---------Maintenance Status ----------
      def get_maintenance_status(self):
          return self.__maintenance_status
-     def set_maintenance_status(self, status):
-         self.__maintenance_status = status
+     def set_maintenance_status(self, maintenance_status):
+         self.__maintenance_status = maintenance_status
 
     # --------Rental Price --------
      def get_rental_price(self):
@@ -33,7 +32,6 @@ class Vehicle:
             self.__rental_price = price
         else:
             print("Rental price must be greater than 0")
-
 
 # if __name__ == "__main__":
 #          v1 = Vehicle("v101","Tesla Model 3",85)
@@ -51,3 +49,5 @@ class Vehicle:
 #
 #          v1.set_rental_price(-500)
 #          v1.set_rental_price(1200)
+
+        '''child class must implement'''
