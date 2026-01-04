@@ -3,6 +3,7 @@ from ElectricScooter import ElectricScooter
 from ElectricCar import ElectricCar
 
 class EcoRideMain:
+    @staticmethod
     def greet():
        print("Welcome to Eco-Ride urban Mobility system")
 
