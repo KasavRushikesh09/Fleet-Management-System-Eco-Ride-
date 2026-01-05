@@ -1,74 +1,46 @@
-from ElectricScooter import ElectricScooter
-from ElectricCar import ElectricCar
-
 class Fleetmanager:
+
     def __init__(self):
-        self.hubs={}
+        self.hubs = {}
+
     def add_hub(self):
-        hub_name = input("Please Enter the hub name: ")
-        if hub_name in self.hubs:
-            print("Hub Already Exists")
+        hub = input("Enter hub name: ")
+        if hub in self.hubs:
+            print("Hub already exists")
         else:
-            self.hubs[hub_name] = []
-            print(f"{hub_name} added Successfully")
+            self.hubs[hub] = []
+            print(f"{hub} added successfully")
+
     def add_vehicle_to_hub(self):
-        hub_name = input("Enter the hub name to add vehicle to Hub:\n")
-        if hub_name not in self.hubs:
-            print(f"Hub {hub_name} does not exist")
+        hub = input("Enter hub name: ")
+        if hub not in self.hubs:
+            print("Hub not found")
             return
-        option = input("Select the vehicle you want to add :\nEnter 1 for Electric Scooter \nEnter 2 for ELectric Car\n")
-        print("Enter 1 for Electric Scooter \n  Enter 2 for Electric Car")
-        vehicle = None
-        id = input("Enter the id of the vehicle:\n")
-        model = input("Enter the model of the vehicle:\n")
-        battery_percentage = int(input("Enter the battery percenatge of the vehicle:\n"))
+
+        option = input("1. Scooter\n2. Car\nChoose: ")
+
+        vehicle_id = input("Vehicle ID: ")
+        model = input("Model: ")
+        battery = int(input("Battery %: "))
 
         if option == '1':
-            max_speed = int(input("Enter the maximum speed of the vehicle:\n"))
-            vehicle = ElectricScooter(id,model,battery_percentage,max_speed)
+            from ElectricScooter import ElectricScooter
+            speed = int(input("Max speed: "))
+            vehicle = ElectricScooter(vehicle_id, model, battery, speed)
+
         elif option == '2':
-            max_capacity = int(input("Enter the max speed of the vehicle:\n"))
-            vehicle = ElectricCar(id,model,battery_percentage,max_capacity)
+            from ElectricCar import ElectricCar
+            seats = int(input("Seating capacity: "))
+            vehicle = ElectricCar(vehicle_id, model, battery, seats)
+
         else:
-            print("invalid option")
+            print("Invalid option")
             return
 
-        existing_vehicles = self.hubs[hub_name]
-        duplicates = [i for i in existing_vehicles if i == vehicle]
+        for v in self.hubs[hub]:
+            if v == vehicle:
+                print("Vehicle already exists")
+                return
 
-        if duplicates:
-            print(f"a vehicle with {vehicle.vehicle_id} id already exists in the {hub_name} hub")
-            return
-
-        self.hubs[hub_name].append(vehicle)
-        print("vehicle added successfully")
-        print(self.hubs)
-
-
-
-            # self.hubs[hub_name].append(vehicle)
-            # print("vehicle added successfully")
-            # print(self.hubs)
-    # def add_multiple_vehicle_to_hub(self):
-    #     hub_name = input("Enter the Hub name to Add vehicle to hub:\n")
-    #     vehicle = None
-    #     if hub_name not in self.hubs:
-    #         print(f"Hub {hub_name} does not exist")
-    #     else:
-    #         for i in range(int(input("Enter the id  of the Vehicle:\n"))):
-    #             option = input("Select the vehicle you want to add :\n enter 1 for Electric Scooter\n enter 2 for ELectric Car\n")
-    #             if option == '1':
-    #                 id = input("Enter the id of the Vehicle:\n")
-    #                 model = input("Enter the model of the Vehicle:\n")
-    #                 battery_percentage = int(input("Enter the battery percentage of the Vehicle:\n"))
-    #                 max_speed = int(input("Enter the maximum speed of the Vehicle:\n"))
-    #                 vehicle = ElectricScooter(id, model, battery_percentage, max_speed)
-    #             elif option == '2':
-    #                 id = input("Enter the id of the vehicle:\n")
-    #                 model = input("Enter the model of the vehicle:\n")
-    #                 battery_percentage = int(input("Enter the battery percentage of the vehicle:\n"))
-    #                 max_capacity = int(input("Enter the max speed of the vehicle:\n"))
-    #                 vehicle = ElectricCar(id,model,battery_percentage,max_capacity)
-    #             self.hubs[hub_name].append(vehicle)
-    #             print("vehicle added successfully")
-    #             print(self.hubs)
+        self.hubs[hub].append(vehicle)
+        print("Vehicle added successfully")
