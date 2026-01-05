@@ -1,12 +1,16 @@
 from abc import ABC, abstractmethod
+
 class Vehicle(ABC):
+
      def __init__(self, vehicle_id, model, battery_percentage):
          self.vehicle_id = vehicle_id
          self.model = model
          self.__rental_price = 0
          self.__maintenance_status = "Good"
         #correct setter call
+         self.battery_percentage = battery_percentage
          self.set_battery_percentage(battery_percentage)
+
      @abstractmethod
      def calculate_trip_cost(self,distance):
         pass
@@ -27,6 +31,12 @@ class Vehicle(ABC):
             self.__rental_price = price
         else:
             raise ValueError("rental price must be positive")
+
+     def get_maintenance_status(self):
+         return self.__maintenance_status
+
+     def set_maintenance_status(self, status):
+         self.__maintenance_status = status
 
      def __eq__(self,other):
          return isinstance(other,Vehicle) and self.vehicle_id == other.vehicle_id

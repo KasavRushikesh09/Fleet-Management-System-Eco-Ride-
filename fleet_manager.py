@@ -1,3 +1,6 @@
+from ElectricScooter import ElectricScooter
+from ElectricCar import ElectricCar
+
 class Fleetmanager:
 
     def __init__(self):
@@ -24,12 +27,10 @@ class Fleetmanager:
         battery = int(input("Battery %: "))
 
         if option == '1':
-            from ElectricScooter import ElectricScooter
             speed = int(input("Max speed: "))
             vehicle = ElectricScooter(vehicle_id, model, battery, speed)
 
         elif option == '2':
-            from ElectricCar import ElectricCar
             seats = int(input("Seating capacity: "))
             vehicle = ElectricCar(vehicle_id, model, battery, seats)
 
@@ -44,3 +45,17 @@ class Fleetmanager:
 
         self.hubs[hub].append(vehicle)
         print("Vehicle added successfully")
+    #UC 8
+    def search_by_hub(self,hub_name):
+        if hub_name not in self.hubs:
+            print("Hub not found")
+            return []
+        return self.hubs[hub_name]
+
+    def search_high_battery_vehicles(self):
+        all_vehicles = []
+        for vehicles in self.hubs.values():
+            all_vehicles.extend(vehicles)
+
+        return list(filter(lambda v:v.get_battery_percenatge()>80,all_vehicles))
+
