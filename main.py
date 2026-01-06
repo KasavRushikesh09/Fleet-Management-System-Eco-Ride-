@@ -9,7 +9,7 @@ class EcoRideMain:
         fm.add_hub()
         fm.add_vehicle_to_hub()
         fm.add_vehicle_to_hub()
-
+  # UC8
         print("\n --- Search Vehicle by Hub --- ")
         hub_name = input("Enter hub to search: ")
         vehicles = fm.search_by_hub(hub_name)
@@ -22,7 +22,17 @@ class EcoRideMain:
 
         for v in high_battery:
             print(v.vehicle_id,v.model,v.get_battery_percentage())
+  #UC9
+        print("\n ---  Categorized View (UC 9) ---")
+        categorized = fm.categorized_view()
 
+        print("\n --- Car ---")
+        for car in categorized["Car"]:
+            print(car.vehicle_id,car.model,car.get_battery_percenatge())
+
+        print("\n --- Scooters --- ")
+        for scooter in categorized["Scooter"]:
+            print(scooter.vehicle_id,scooter.model,scooter.get_battery_percentage())
 if __name__ == "__main__":
     app = EcoRideMain()
     app.main()

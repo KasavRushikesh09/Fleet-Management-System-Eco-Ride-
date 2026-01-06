@@ -57,5 +57,23 @@ class Fleetmanager:
         for vehicles in self.hubs.values():
             all_vehicles.extend(vehicles)
 
-        return list(filter(lambda v:v.get_battery_percenatge()>80,all_vehicles))
+        return list(filter(lambda v:v.get_battery_percentage()>80,all_vehicles))
+
+    # UC 9
+    def categorized_view(self):
+        categorized = {
+            "Car":[],
+            "Scooter":[]
+        }
+        #collect vehicles from all hubs
+        for vehicles in self.hubs.values():
+            for v in vehicles:
+                if isinstance(v,ElectricCar):
+                    categorized["Car"].append(v)
+                elif isinstance(v,ElectricScooter):
+                    categorized["Scooter"].append(v)
+
+        return categorized
+
+
 
