@@ -75,5 +75,19 @@ class Fleetmanager:
 
         return categorized
 
+    # UC-10
+    #fleet Analytics: count vehicles by status
+    def fleet_analytics(self):
+        status_count = {
+            "Available":0,
+            "On Trip":0,
+            "Under Maintenance":0
+        }
 
+        for vehicles in self.hubs.values():
+            for v in vehicles:
+                status = v.get_maintenance_status()
+                if status in status_count:
+                    status_count[status] += 1
 
+        return status_count

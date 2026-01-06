@@ -6,7 +6,7 @@ class Vehicle(ABC):
          self.vehicle_id = vehicle_id
          self.model = model
          self.__rental_price = 0
-         self.__maintenance_status = "Good"
+         self.__maintenance_status = "Available"
         #correct setter call
          self.battery_percentage = battery_percentage
          self.set_battery_percentage(battery_percentage)
