@@ -36,6 +36,14 @@ class EcoRideMain:
 
     #UC10
             fm.fleet_analytics()
+    #UC11
+
+        print("\n--- Alphabetical Sorting by Model (UC 11) ---")
+        hub_name = input("Enter hub name:")
+        sorted_vehicles = fm.sort_vehicles_by_model(hub_name)
+
+        for v in sorted_vehicles:
+            print(v)
 if __name__ == "__main__":
     app = EcoRideMain()
     app.main()

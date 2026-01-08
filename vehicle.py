@@ -38,5 +38,12 @@ class Vehicle(ABC):
      def set_maintenance_status(self, status):
          self.__maintenance_status = status
 
+     def __str__(self):
+         return (
+             f"ID: {self.vehicle_id},"
+             f"model: {self.model},"
+             f"battery percentage: {self.battery_percentage}%,"
+             f"status: {self.get_maintenance_status()}"
+         )
      def __eq__(self,other):
          return isinstance(other,Vehicle) and self.vehicle_id == other.vehicle_id

@@ -95,3 +95,9 @@ class Fleetmanager:
         print(f"Available Vehicles       : {status_count['Available']}")
         print(f"Vehicles On Trip         : {status_count['On Trip']}")
         print(f"Under Maintenance        : {status_count['Under Maintenance']}")
+    #UC:11 Alphabetical Sorting by Model Name
+    def sort_vehicles_by_model(self,hub_name):
+        if hub_name not in self.hubs:
+            print("Hub not found")
+            return []
+        return sorted(self.hubs[hub_name],key = lambda v:v.model.lower())
