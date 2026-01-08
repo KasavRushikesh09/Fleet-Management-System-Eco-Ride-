@@ -9,7 +9,7 @@ class EcoRideMain:
         fm.add_hub()
         fm.add_vehicle_to_hub()
         fm.add_vehicle_to_hub()
-  # UC8
+    #UC8
         print("\n --- Search Vehicle by Hub --- ")
         hub_name = input("Enter hub to search: ")
         vehicles = fm.search_by_hub(hub_name)
@@ -33,19 +33,12 @@ class EcoRideMain:
         print("\n --- Scooters --- ")
         for scooter in categorized["Scooter"]:
             print(scooter.vehicle_id,scooter.model,scooter.get_battery_percentage())
-
-    #UC-10
-        print("\n --- Fleet Analytics (UC 10) ---")
-        analytics = fm.fleet_analytics()
-        print("---------------------")
-        print(f"Available Vehicles   :{analytics['Available']}")
-        print(f"Vehicles On Trip     :{analytics['On Trip']}")
-        print(f"under maintenance    :{analytics['Under Maintenance']}")
-        print("---------------------")
-
+    #UC10
+        fm.fleet_analytics()
 if __name__ == "__main__":
     app = EcoRideMain()
     app.main()
+
 
 
 
