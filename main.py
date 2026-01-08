@@ -33,14 +33,9 @@ class EcoRideMain:
         print("\n --- Scooters --- ")
         for scooter in categorized["Scooter"]:
             print(scooter.vehicle_id,scooter.model,scooter.get_battery_percentage())
-<<<<<<< HEAD
+
     #UC10
         fm.fleet_analytics()
-=======
-
-
-
->>>>>>> 5163f9c91a565646f4f886cda3c4cfcd3ca6c32e
 if __name__ == "__main__":
     app = EcoRideMain()
     app.main()
