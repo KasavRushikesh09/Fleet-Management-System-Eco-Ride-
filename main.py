@@ -34,18 +34,22 @@ class EcoRideMain:
         for scooter in categorized["Scooter"]:
             print(scooter.vehicle_id,scooter.model,scooter.get_battery_percentage())
 
-    #UC-10
-        print("\n --- Fleet Analytics (UC 10) ---")
-        analytics = fm.fleet_analytics()
-        print("---------------------")
-        print(f"Available Vehicles   :{analytics['Available']}")
-        print(f"Vehicles On Trip     :{analytics['On Trip']}")
-        print(f"under maintenance    :{analytics['Under Maintenance']}")
-        print("---------------------")
+            # UC10
+            fm.fleet_analytics()
+        # UC11
+
+        print("\n--- Alphabetical Sorting by Model (UC 11) ---")
+        hub_name = input("Enter hub name:")
+        sorted_vehicles = fm.sort_vehicles_by_model(hub_name)
+
+        for v in sorted_vehicles:
+            print(v)
+
 
 if __name__ == "__main__":
     app = EcoRideMain()
     app.main()
+
 
 
 
