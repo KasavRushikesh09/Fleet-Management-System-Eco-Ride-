@@ -44,6 +44,17 @@ class EcoRideMain:
 
         for v in sorted_vehicles:
             print(v)
+    #UC12
+        print("\n --- UC12 : Sort by Battery Level ---")
+        battery_sorted = fm.sort_vehicles("battery")
+        for v in battery_sorted:
+            print(v.vehicle_id,v.model,v.get_battery_percentage())
+
+        print("\n --- UC12 : Sort by Fare Price ---")
+        fare_sorted = fm.sort_vehicles("fare")
+        for v in fare_sorted:
+            print(v.vehicle_id,v.model,v.get_rental_price())
+
 if __name__ == "__main__":
     app = EcoRideMain()
     app.main()

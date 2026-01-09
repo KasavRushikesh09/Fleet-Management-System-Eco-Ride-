@@ -1,3 +1,6 @@
+import csv
+import os
+
 from ElectricScooter import ElectricScooter
 from ElectricCar import ElectricCar
 
@@ -90,7 +93,7 @@ class Fleetmanager:
                 if status in status_count:
                     status_count[status] += 1
 
-        print("\n📊 Fleet Analytics Summary (UC 10)")
+        print("\n Fleet Analytics Summary (UC 10)")
         print("-" * 35)
         print(f"Available Vehicles       : {status_count['Available']}")
         print(f"Vehicles On Trip         : {status_count['On Trip']}")
@@ -101,3 +104,26 @@ class Fleetmanager:
             print("Hub not found")
             return []
         return sorted(self.hubs[hub_name],key = lambda v:v.model.lower())
+    #UC:12 Sort
+    def sort_vehicles(self,sort_by):
+        all_vehicles = []
+        for vehicles in self.hubs.values():
+            all_vehicles.extend(vehicles)
+
+        if sort_by == "battery":
+            return sorted(
+                all_vehicles,
+                key = lambda v:v.get_battery_percentage(),
+                reverse = True
+            )
+        elif sort_by == "fare":
+            return sorted(
+                all_vehicles,
+                key = lambda v:v.get_rental_price(),
+                reverse = True
+            )
+        else:
+            print("Invalid soring option")
+            return[]
+
+
