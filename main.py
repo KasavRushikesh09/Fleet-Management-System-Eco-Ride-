@@ -55,6 +55,10 @@ class EcoRideMain:
         for v in fare_sorted:
             print(v.vehicle_id,v.model,v.get_rental_price())
 
+    #UC13
+            fm = Fleetmanager()
+            fm.load_from_csv()
+            fm.save_to_csv()
 if __name__ == "__main__":
     app = EcoRideMain()
     app.main()

@@ -98,14 +98,17 @@ class Fleetmanager:
         print(f"Available Vehicles       : {status_count['Available']}")
         print(f"Vehicles On Trip         : {status_count['On Trip']}")
         print(f"Under Maintenance        : {status_count['Under Maintenance']}")
+
     #UC:11 Alphabetical Sorting by Model Name
     def sort_vehicles_by_model(self,hub_name):
         if hub_name not in self.hubs:
             print("Hub not found")
             return []
         return sorted(self.hubs[hub_name],key = lambda v:v.model.lower())
-    #UC:12 Sort
-    def sort_vehicles(self,sort_by):
+
+    # UC:12 Sort
+
+    def sort_vehicles(self, sort_by):
         all_vehicles = []
         for vehicles in self.hubs.values():
             all_vehicles.extend(vehicles)
@@ -113,17 +116,71 @@ class Fleetmanager:
         if sort_by == "battery":
             return sorted(
                 all_vehicles,
-                key = lambda v:v.get_battery_percentage(),
-                reverse = True
+                key=lambda v: v.get_battery_percentage(),
+                reverse=True
             )
         elif sort_by == "fare":
             return sorted(
                 all_vehicles,
-                key = lambda v:v.get_rental_price(),
-                reverse = True
+                key=lambda v: v.get_rental_price(),
+                reverse=True
             )
         else:
             print("Invalid soring option")
-            return[]
+            return []
 
+    # UC 13: Save fleet data to CSV
+    def save_to_csv(self, filename="fleet_management.csv"):
+        with open(filename, mode="w", newline="") as file:
+            writer = csv.writer(file)
 
+            #header
+            writer.writerow([
+                "hub", "vehicle_id", "model", "battery",
+                "type", "extra", "rental_price", "status"
+            ])
+
+            for hub,vehicles in self.hubs.items():
+                for v in vehicles:
+                    if isinstance(v,ElectricCar):
+                        v_type = "Car"
+                        extra = v.seating_capacity
+                    else:
+                        v_type = "Scooter"
+                        extra = v.max_speed_limit
+                    writer.writerow([
+                        hub,
+                        v.vehicle_id,
+                        v.model,
+                        v.get_battery_percentage(),
+                        v_type,
+                        extra,
+                        v.get_rental_price(),
+                        v.get_maintenance_status()
+                    ])
+    def load_from_csv(self,filename="fleet_management.csv"):
+        if not os.path.exists(filename):
+            return
+        with open(filename,mode="r")as file:
+            reader = csv.DictReader(file)
+
+            for row in reader:
+                hub = row["hub"]
+                if hub not in self.hubs:
+                    self.hubs[hub] = []
+                if row["type"] == "Car":
+                    vehicle = ElectricCar(
+                        row["vehicle_id"],
+                        row["model"],
+                        int(row["battery"]),
+                        int(row["extra"])
+                    )
+                elif row["type"] == "Scooter":
+                    vehicle = ElectricScooter(
+                        row["vehicle_id"],
+                        row["model"],
+                        int(row["battery"]),
+                        int(row["extra"])
+                    )
+                vehicle.set_maintenance_status(row["status"])
+                self.hubs[hub].append(vehicle)
