@@ -7,6 +7,7 @@ class EcoRideMain:
         self.greet()
         fm = Fleetmanager()
         fm.load_from_csv()
+        fm.load_from_json()
         #------ UC 1 & 2
         fm.add_hub()
         fm.add_vehicle_to_hub()
@@ -59,6 +60,8 @@ class EcoRideMain:
 
     #UC13
         fm.save_to_csv()
+    #UC13
+        fm.save_to_json()
 if __name__ == "__main__":
     app = EcoRideMain()
     app.main()

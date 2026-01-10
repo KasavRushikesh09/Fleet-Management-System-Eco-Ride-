@@ -1,5 +1,6 @@
 import csv
 import os
+import json
 
 from ElectricScooter import ElectricScooter
 from ElectricCar import ElectricCar
@@ -158,7 +159,7 @@ class Fleetmanager:
                         v.get_rental_price(),
                         v.get_maintenance_status()
                     ])
-        print("Fleet data saved successfully to fleet_management.csv")
+        print("Fleet data saved Successfully to fleet_management.csv")
     def load_from_csv(self,filename="fleet_management.csv"):
         if not os.path.exists(filename):
             return
@@ -185,3 +186,59 @@ class Fleetmanager:
                     )
                 vehicle.set_maintenance_status(row["status"])
                 self.hubs[hub].append(vehicle)
+#UC14
+    def save_to_json(self,filename="fleet_management.json"):
+        data = {}
+
+        for hub, vehicles in self.hubs.items():
+            data[hub] = []
+
+            for v in vehicles:
+                if isinstance(v, ElectricCar):
+                    vehicle_type = "Car"
+                    extra = v.seating_capacity
+                else:
+                    vehicle_type = "Scooter"
+                    extra = v.max_speed_limit
+
+                data[hub].append({
+                    "vehicle_id":v.vehicle_id,
+                    "model":v.model,
+                    "battery":v.get_battery_percentage(),
+                    "type":vehicle_type,
+                    "extra": extra,
+                    "rental_price":v.get_rental_price(),
+                    "status":v.get_maintenance_status()
+                })
+                with open(filename,"w") as file:
+                    json.dump(data,file,indent=4)
+        print("Fleet data saved Successfully to fleet_management.json")
+    def load_from_json(self,filename = "fleet_management.json"):
+        if not os.path.exists(filename):
+            print("JSON file not found.Starting fresh.")
+            return
+        with open(filename,mode="r")as file:
+            data = json.load(file)
+
+        for hub,vehicles in data.items():
+            if hub not in self.hubs:
+                self.hubs[hub] = []
+            for v in vehicles:
+                if v["type"] == "Car":
+                    vehicle = ElectricCar(
+                        v["vehicle_id"],
+                        v["model"],
+                        v["battery"],
+                        v["extra"]
+                    )
+                else:
+                    vehicle = ElectricScooter(
+                        v["vehicle_id"],
+                        v["model"],
+                        v["battery"],
+                        v["extra"]
+                    )
+                vehicle.set_maintenance_status(v["status"])
+                self.hubs[hub].append(vehicle)
+
+
