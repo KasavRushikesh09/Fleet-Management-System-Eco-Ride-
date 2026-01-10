@@ -6,6 +6,8 @@ class EcoRideMain:
     def main(self):
         self.greet()
         fm = Fleetmanager()
+        fm.load_from_csv()
+        #------ UC 1 & 2
         fm.add_hub()
         fm.add_vehicle_to_hub()
         fm.add_vehicle_to_hub()
@@ -56,12 +58,8 @@ class EcoRideMain:
             print(v.vehicle_id,v.model,v.get_rental_price())
 
     #UC13
-            fm = Fleetmanager()
-            fm.load_from_csv()
-            fm.save_to_csv()
+        fm.save_to_csv()
 if __name__ == "__main__":
     app = EcoRideMain()
     app.main()
-
-
 

@@ -158,6 +158,7 @@ class Fleetmanager:
                         v.get_rental_price(),
                         v.get_maintenance_status()
                     ])
+        print("Fleet data saved successfully to fleet_management.csv")
     def load_from_csv(self,filename="fleet_management.csv"):
         if not os.path.exists(filename):
             return
